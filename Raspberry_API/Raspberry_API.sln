@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 15.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raspberry_API", "Raspberry_API.csproj", "{8813DA40-9CC9-4DCF-8157-82DD7558F08C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8813DA40-9CC9-4DCF-8157-82DD7558F08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8813DA40-9CC9-4DCF-8157-82DD7558F08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8813DA40-9CC9-4DCF-8157-82DD7558F08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8813DA40-9CC9-4DCF-8157-82DD7558F08C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
