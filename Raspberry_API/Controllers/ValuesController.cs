@@ -3,42 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Interface_Mongo_Http;
 
 namespace Raspberry_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class ValuesController : Controller
     {
-        // GET api/values
+        private readonly Interface _interface;
+
+        public ValuesController(Interface @interface)
+        {
+            _interface = @interface;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetProducts()
         {
-            return new string[] { "value1", "value2" };
+            var toto = _interface.GetProducts();
+            return Ok(toto);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id:int}")]
+        public IActionResult GetProduct(int id)
         {
-            return "value";
+
+            return Ok("product");
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
