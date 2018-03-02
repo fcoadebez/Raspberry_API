@@ -2,10 +2,12 @@
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Interface_Mongo_Http;
+using System.Linq;
 
-namespace MVC6_WEBAPI_MongoDB.Models
+namespace Mongo
 {
-    public class DataAccess
+    public class DataAccess :Interface
     {
         MongoClient _client;
         IMongoDatabase _db;
@@ -16,16 +18,18 @@ namespace MVC6_WEBAPI_MongoDB.Models
             _db = _client.GetDatabase("app-iot");
         }
 
-        public IEnumerable<Product> GetProducts()
+        public List<IProduct> GetProducts()
         {
-            return _db.GetCollection<Product>("products").AsQueryable<Product>().ToList();
+            var test = _db.GetCollection<Product>("products").AsQueryable<Product>().ToList();
+
+            return test.Cast<IProduct>().ToList();
 
         }
 
-        public Product GetProduct(string name)
+        public IProduct GetProduct(string name)
         {
             var filter = Builders<Product>.Filter.Eq("name", name);
-            return _db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
+            return (Interface_Mongo_Http.IProduct)_db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
         }
 
         public ObjectId Create(Product p)

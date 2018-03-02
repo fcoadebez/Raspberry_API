@@ -5,6 +5,22 @@ using Interface_Mongo_Http;
 
 namespace Raspberry_API.Tests
 {
+    public class TestProduct :IProduct
+    {
+
+        public string MachineId { get; set; }
+
+        public string Name { get; set; }
+
+        public int CurrentStock { get; set; }
+
+        public int MaxStock { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public string Category { get; set; }
+
+    }
     public class TestInterface : Interface
     {
         List<string> products = new List<string>(new string[] { "element1", "element2", "element3", "element4" });
@@ -14,16 +30,14 @@ namespace Raspberry_API.Tests
 
         }
 
-        public Product getProduct(int id)
+        public IProduct GetProduct(string name)
         {
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProducts()
+        public List<IProduct> GetProducts()
         {
-            return products.Select(p => new Product { Nom = p }).ToList();
+            return products.Select(p => (IProduct) new TestProduct { Name = p }).ToList();
         }
-
-
     }
 }

@@ -1,9 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using Interface_Mongo_Http;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MVC6_WEBAPI_MongoDB.Models
+namespace Mongo
 {
-    public class Product
+    public class Product:IProduct
     {
         public ObjectId Id { get; set; }
         [BsonElement("machine_id")]

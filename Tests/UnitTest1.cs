@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
-using MVC6_WEBAPI_MongoDB.Models;
+using Mongo;
 
 namespace Tests
 {
@@ -14,7 +14,7 @@ namespace Tests
         {
             string name = "A12";
             DataAccess dataAccess = new DataAccess();
-            Product test = dataAccess.GetProduct(name);
+            var test = dataAccess.GetProduct(name);
             Assert.IsTrue(test != null);
         }
 

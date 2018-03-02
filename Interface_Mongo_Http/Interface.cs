@@ -5,8 +5,8 @@ namespace Interface_Mongo_Http
 {
     public interface Interface
     {
-        List<Product> GetProducts();
+        List<IProduct> GetProducts();
 
-        Product getProduct(int id);
+        IProduct GetProduct(string name);
     }
 }
