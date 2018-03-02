@@ -7,7 +7,7 @@ namespace MVC6_WEBAPI_MongoDB.Models
     {
         public ObjectId Id { get; set; }
         [BsonElement("machine_id")]
-        public int MachineId { get; set; }
+        public string MachineId { get; set; }
         [BsonElement("name")]
         public string Name { get; set; }
         [BsonElement("current_stock")]

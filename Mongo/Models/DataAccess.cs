@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MVC6_WEBAPI_MongoDB.Models
 {
@@ -12,29 +12,28 @@ namespace MVC6_WEBAPI_MongoDB.Models
 
         public DataAccess()
         {
-            _client = new MongoClient("ecv-app-iot:ecv123@ds237808.mlab.com:37808/app-iot");
-            _db = _client.GetDatabase("Products");
+            _client = new MongoClient("mongodb://readonly:ecv123@ds237808.mlab.com:37808/app-iot");
+            _db = _client.GetDatabase("app-iot");
         }
 
         public IEnumerable<Product> GetProducts()
         {
-            return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
+            return _db.GetCollection<Product>("products").AsQueryable<Product>().ToList();
 
         }
 
-        public Product GetProduct(ObjectId id)
+        public Product GetProduct(string name)
         {
-            /*var res = Query<Product>.EQ(p => p.Id, id);
-            return _db.GetCollection<Product>("Products").FindOne();*/
-            var filter = Builders<Product>.Filter.Eq("i", id);
-            return _db.GetCollection<Product>("Products").Find(filter).FirstOrDefault();
+            var filter = Builders<Product>.Filter.Eq("name", name);
+            return _db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
         }
 
-        public Product Create(Product p)
+        public ObjectId Create(Product p)
         {
             /*_db.GetCollection<Product>("Products").Save(p);
             return p;*/
             //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
+            return p.Id;
         }
 
         public void Update(ObjectId id, Product p)
