@@ -7,11 +7,16 @@ namespace Raspberry_API.Tests
 {
     public class TestInterface : Interface
     {
-        List<string> products = new List<string>(new string[] { "element1", "element2", "element3" });
+        List<string> products = new List<string>(new string[] { "element1", "element2", "element3", "element4" });
 
         public TestInterface()
         {
 
+        }
+
+        public Product getProduct(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Product> GetProducts()

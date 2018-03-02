@@ -19,5 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Interface_Mongo_Http\Interface_Mongo_Http.csproj" />
+    <ProjectReference Include="..\Mongo\Mongo.csproj" />
   </ItemGroup>
 </Project>

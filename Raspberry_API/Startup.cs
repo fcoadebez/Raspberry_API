@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Mongo;
+using Raspberry_API.Tests;
 
 namespace Raspberry_API
 {
@@ -24,7 +26,7 @@ namespace Raspberry_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Add<Interface, Mongo>();
+            services.AddSingleton<Interface, TestInterface>();
             services.AddMvc();
         }
 

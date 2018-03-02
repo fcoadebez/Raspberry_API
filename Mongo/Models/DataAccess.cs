@@ -30,12 +30,12 @@ namespace MVC6_WEBAPI_MongoDB.Models
             return _db.GetCollection<Product>("Products").Find(filter).FirstOrDefault();
         }
 
-        public Product Create(Product p)
-        {
-            /*_db.GetCollection<Product>("Products").Save(p);
-            return p;*/
-            //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
-        }
+        //public Product Create(Product p)
+        //{
+        //    /*_db.GetCollection<Product>("Products").Save(p);
+        //    return p;*/
+        //    //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
+        //}
 
         public void Update(ObjectId id, Product p)
         {
