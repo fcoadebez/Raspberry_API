@@ -10,6 +10,8 @@ namespace Interface_Mongo_Http
         IProduct GetProduct(string name);
 
         void Create(IProduct p);
+        void Update(string name, IProduct p);
+        void Remove(string name);
 
     }
 }

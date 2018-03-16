@@ -45,5 +45,35 @@ namespace Raspberry_API.Controllers
                 return BadRequest(e);
             }
         }
+
+        [HttpPost("update/{name}")]
+        public IActionResult Create(string name, Product p)
+        {
+            try
+            {
+                _interface.Update(name, p);
+                return Created($"api/products/{p.Name}", p);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        [HttpGet("remove/{name}")]
+        public IActionResult Remove(string name)
+        {
+            try
+            {
+                _interface.Remove(name);
+                return Ok("Removed");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
     }
 }
