@@ -32,28 +32,21 @@ namespace Mongo
             return (Interface_Mongo_Http.IProduct)_db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
         }
 
-        public ObjectId Create(Product p)
+        public void Create(Product p)
         {
-            /*_db.GetCollection<Product>("Products").Save(p);
-            return p;*/
-            //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
-            return p.Id;
+            _db.GetCollection<Product>("Products").InsertOne(p);
         }
 
-        public void Update(ObjectId id, Product p)
+        public void Update(string name, Product p)
         {
-            /*p.Id = id;
-            var res = Query<Product>.EQ(pd => pd.Id, id);
-            var operation = Update<Product>.Replace(p);
-            _db.GetCollection<Product>("Products").Update(res, operation);*/
-            //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
-
+            /*var filter = Builders<Product>.Filter.Eq("name", name);
+            var updateDefinition = Builders<Product>.Update.Set();
+            _db.GetCollection<Product>("Products").UpdateOne();*/
         }
-        public void Remove(ObjectId id)
+        public void Remove(string name)
         {
-            /*var res = Query<Product>.EQ(e => e.Id, id);
-            var operation = _db.GetCollection<Product>("Products").Remove(res);*/
-            //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
+            var filter = Builders<Product>.Filter.Eq("name", name);
+            _db.GetCollection<Product>("Products").DeleteOne(filter);
         }
     }
 }
