@@ -1,9 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Interface_Mongo_Http;
-using System.Linq;
 
 namespace Mongo
 {
@@ -14,30 +13,32 @@ namespace Mongo
 
         public DataAccess()
         {
-            _client = new MongoClient("mongodb://readonly:ecv123@ds237808.mlab.com:37808/app-iot");
-            _db = _client.GetDatabase("app-iot");
+            _client = new MongoClient("ecv-app-iot:ecv123@ds237808.mlab.com:37808/app-iot");
+            _db = _client.GetDatabase("Products");
         }
 
-        public List<IProduct> GetProducts()
+        public IEnumerable<IProduct> GetProducts()
         {
-            var test = _db.GetCollection<Product>("products").AsQueryable<Product>().ToList();
-
-            return test.Cast<IProduct>().ToList();
+            return _db.GetCollection<IProduct>("Products").AsQueryable<IProduct>().ToList();
 
         }
 
-        public IProduct GetProduct(string name)
+        public IProduct GetProduct(ObjectId id)
         {
-            var filter = Builders<Product>.Filter.Eq("name", name);
-            return (Interface_Mongo_Http.IProduct)_db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
+            /*var res = Query<Product>.EQ(p => p.Id, id);
+            return _db.GetCollection<Product>("Products").FindOne();*/
+            var filter = Builders<IProduct>.Filter.Eq("i", id);
+            return _db.GetCollection<IProduct>("Products").Find(filter).FirstOrDefault();
         }
 
-        public void Create(Product p)
+        public string Create(IProduct p)
         {
-            _db.GetCollection<Product>("Products").InsertOne(p);
+            _db.GetCollection<IProduct>("Products").InsertOne(p);
+
+            return "Ok";
         }
 
-        public void Update(string name, Product p)
+        public void Update(string name, IProduct p)
         {
             /*var filter = Builders<Product>.Filter.Eq("name", name);
             var updateDefinition = Builders<Product>.Update.Set();
@@ -45,8 +46,23 @@ namespace Mongo
         }
         public void Remove(string name)
         {
-            var filter = Builders<Product>.Filter.Eq("name", name);
-            _db.GetCollection<Product>("Products").DeleteOne(filter);
+            var filter = Builders<IProduct>.Filter.Eq("name", name);
+            _db.GetCollection<IProduct>("Products").DeleteOne(filter);
+        }
+
+        List<IProduct> Interface.GetProducts()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IProduct GetProduct(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IProduct Interface.Create(IProduct p)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

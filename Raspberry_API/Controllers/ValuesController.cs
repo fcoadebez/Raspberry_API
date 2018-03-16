@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Interface_Mongo_Http;
+using Mongo;
 
 namespace Raspberry_API.Controllers
 {
@@ -29,6 +30,13 @@ namespace Raspberry_API.Controllers
         {
             var product = _interface.GetProduct(name);
             return Ok(product);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Create(Product p)
+        {
+            var response = _interface.Create(p);
+            return Ok(response);
         }
 
        
