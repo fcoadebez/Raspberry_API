@@ -14,7 +14,7 @@ namespace Mongo
 
         public DataAccess()
         {
-            _client = new MongoClient("mongodb://readonly:ecv123@ds237808.mlab.com:37808/app-iot");
+            _client = new MongoClient("mongodb://ecv-app-iot:ecv123@ds237808.mlab.com:37808/app-iot");
             _db = _client.GetDatabase("app-iot");
         }
 
@@ -34,7 +34,17 @@ namespace Mongo
 
         public void Create(IProduct p)
         {
-            _db.GetCollection<IProduct>("Products").InsertOne(p);
+            var product = new Product{
+                Id = ObjectId.GenerateNewId(),
+                Name = p.Name,
+                MachineId = p.MachineId,
+                CurrentStock = p.CurrentStock,
+                MaxStock = p.MaxStock,
+                Category = p.Category
+            };
+
+
+            _db.GetCollection<Product>("products").InsertOne(product);
         }
 
         public void Update(string name, Product p)

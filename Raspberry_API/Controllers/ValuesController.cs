@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Interface_Mongo_Http;
-using Mongo;
+using Raspberry_API.Models;
 
 namespace Raspberry_API.Controllers
 {
@@ -33,7 +33,7 @@ namespace Raspberry_API.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Create(Product p)
+        public IActionResult Create([FromBody]Product p)
         {
             try
             {
