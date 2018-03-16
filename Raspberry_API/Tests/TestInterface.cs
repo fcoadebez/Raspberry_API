@@ -45,9 +45,8 @@ namespace Raspberry_API.Tests
         public void Update(string name, IProduct p)
         {
         }
-        public void Remove(IProduct p)
+        public void Remove(string name)
         {
         }
-
     }
 }
