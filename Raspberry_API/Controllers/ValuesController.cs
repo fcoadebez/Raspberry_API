@@ -7,7 +7,7 @@ using Interface_Mongo_Http;
 
 namespace Raspberry_API.Controllers
 {
-    [Route("api/")]
+    [Route("api/products")]
     public class ValuesController : Controller
     {
         private readonly Interface _interface;
@@ -20,15 +20,15 @@ namespace Raspberry_API.Controllers
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var toto = _interface.GetProducts();
-            return Ok(toto);
+            var products = _interface.GetProducts();
+            return Ok(products);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetProduct(int id)
+        [HttpGet("{name}")]
+        public IActionResult GetProduct(string name)
         {
-
-            return Ok("product");
+            var product = _interface.GetProduct(name);
+            return Ok(product);
         }
 
        
