@@ -39,9 +39,8 @@ namespace Raspberry_API.Tests
         {
             return products.Select(p => (IProduct) new TestProduct { Name = p }).ToList();
         }
-        public IProduct Create(IProduct p)
+        public void Create(IProduct p)
         {
-            throw new NotImplementedException();
         }
     }
 }

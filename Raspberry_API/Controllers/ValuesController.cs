@@ -35,10 +35,15 @@ namespace Raspberry_API.Controllers
         [HttpPost("add")]
         public IActionResult Create(Product p)
         {
-            var response = _interface.Create(p);
-            return Ok(response);
+            try
+            {
+                _interface.Create(p);
+                return Created($"api/products/{p.Name}", p);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
-
-       
     }
 }

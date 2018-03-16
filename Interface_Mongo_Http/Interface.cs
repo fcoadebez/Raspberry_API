@@ -9,7 +9,7 @@ namespace Interface_Mongo_Http
 
         IProduct GetProduct(string name);
 
-        IProduct Create(IProduct p);
+        void Create(IProduct p);
 
     }
 }
