@@ -47,16 +47,33 @@ namespace Mongo
             _db.GetCollection<Product>("products").InsertOne(product);
         }
 
-        public void Update(string name, Product p)
+        public void Update(string name, IProduct p)
         {
             /*var filter = Builders<Product>.Filter.Eq("name", name);
-+            var updateDefinition = Builders<Product>.Update.Set();
-+            _db.GetCollection<Product>("Products").UpdateOne();*/
+            var product = new Product
+            {
+                Id = ObjectId.GenerateNewId(),
+                Name = p.Name,
+                MachineId = p.MachineId,
+                CurrentStock = p.CurrentStock,
+                MaxStock = p.MaxStock,
+                Category = p.Category
+            };
+            _db.GetCollection<Product>("products").ReplaceOne(filter, product);*/
+            var filter = Builders<Product>.Filter.Eq("name", name);
+            var update = Builders<Product>.Update
+                .Set("name", p.Name)
+                .Set("machine_id", p.MachineId)
+                .Set("current_stock", p.CurrentStock)
+                .Set("max_stock", p.MaxStock)
+                .Set("category", p.Category);
+            
+            _db.GetCollection<Product>("products").UpdateOne(filter, update);
         }
         public void Remove(string name)
         {
             var filter = Builders<Product>.Filter.Eq("name", name);
-            _db.GetCollection<Product>("Products").DeleteOne(filter);
+            _db.GetCollection<Product>("products").DeleteOne(filter);
         }
     }
 }

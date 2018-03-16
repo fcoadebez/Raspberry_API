@@ -6,6 +6,7 @@ namespace Raspberry_API.Models
 {
     public class Product :IProduct
     {
+        
         [JsonProperty(PropertyName = "MachineId")]
         public string MachineId { get; set; }
         [JsonProperty(PropertyName = "Name")]

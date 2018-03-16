@@ -47,7 +47,7 @@ namespace Raspberry_API.Controllers
         }
 
         [HttpPost("update/{name}")]
-        public IActionResult Create(string name, Product p)
+        public IActionResult Update(string name, [FromBody]Product p)
         {
             try
             {
