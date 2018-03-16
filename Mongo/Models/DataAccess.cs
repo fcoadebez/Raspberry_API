@@ -1,43 +1,40 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Interface_Mongo_Http;
-using System.Linq;
 
-namespace Mongo
+namespace MVC6_WEBAPI_MongoDB.Models
 {
-    public class DataAccess :Interface
+    public class DataAccess
     {
         MongoClient _client;
         IMongoDatabase _db;
 
         public DataAccess()
         {
-            _client = new MongoClient("mongodb://readonly:ecv123@ds237808.mlab.com:37808/app-iot");
-            _db = _client.GetDatabase("app-iot");
+            _client = new MongoClient("ecv-app-iot:ecv123@ds237808.mlab.com:37808/app-iot");
+            _db = _client.GetDatabase("Products");
         }
 
-        public List<IProduct> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            var test = _db.GetCollection<Product>("products").AsQueryable<Product>().ToList();
-
-            return test.Cast<IProduct>().ToList();
+            return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
 
         }
 
-        public IProduct GetProduct(string name)
+        public Product GetProduct(ObjectId id)
         {
-            var filter = Builders<Product>.Filter.Eq("name", name);
-            return (Interface_Mongo_Http.IProduct)_db.GetCollection<Product>("products").Find(filter).FirstOrDefault();
+            /*var res = Query<Product>.EQ(p => p.Id, id);
+            return _db.GetCollection<Product>("Products").FindOne();*/
+            var filter = Builders<Product>.Filter.Eq("i", id);
+            return _db.GetCollection<Product>("Products").Find(filter).FirstOrDefault();
         }
 
-        public ObjectId Create(Product p)
+        public Product Create(Product p)
         {
             /*_db.GetCollection<Product>("Products").Save(p);
             return p;*/
             //return _db.GetCollection<Product>("Products").AsQueryable<Product>().ToList();
-            return p.Id;
         }
 
         public void Update(ObjectId id, Product p)
